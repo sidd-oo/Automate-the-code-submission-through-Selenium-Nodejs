@@ -30,8 +30,17 @@ cfileWillBeReadPromise.then(function (content) {
     //Username and password will be entered in the input fields of the login panel.
     let userNameWillBeEnteredPromise = elements[0].sendKeys(userName);
     let pwdWillBeEnteredPromise = elements[1].sendKeys(pwd);
-    let bothValueWillBeEnteredPromise = promises.all([userNameWillBeEnteredPromise,pwdWillBeEnteredPromise]);
+    let bothValueWillBeEnteredPromise = Promise.all([userNameWillBeEnteredPromise,pwdWillBeEnteredPromise]);
     return bothValueWillBeEnteredPromise;
+}).then(function(){
+    //This will grab the submit button element give a promise for further use.
+    let submitButtonWillBeFoundPromise = driver.findElement(sd.By.css("button[type=submit]"));
+    return submitButtonWillBeFoundPromise;
+}).then(function(submitButton){
+    let submitButtonClickedPromise = submitButton.click();
+    return submitButtonClickedPromise;
+}).catch(function(err){
+    console.log(err);
 })
 
 
