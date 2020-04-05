@@ -18,6 +18,11 @@ cfileWillBeReadPromise.then(function (content) {
 
     let loginPageWillBeLoadedPromise = driver.get(`https://www.pepcoding.com/login`);
     return loginPageWillBeLoadedPromise;
+}).then(function(){
+    let unWillBeFoundPromise = driver.findElement(sd.By.css("input[type=email]"));
+    let pwdWillBeFoundPromise = driver.findElement(sd.By.css("input[type=password]"));
+    let bothElementsWillBeFoundPromise = Promise.all([unWillBeFoundPromise,pwdWillBeFoundPromise]);
+    return bothElementsWillBeFoundPromise;
 })
 
 
