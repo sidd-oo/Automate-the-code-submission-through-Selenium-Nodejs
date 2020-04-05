@@ -48,6 +48,10 @@ cfileWillBeReadPromise.then(function (content) {
     //Extracting the href attribribute from anchor tag
     let resLinkHrefWillBeFoundPromise = resLinkElement.getAttribute('href');
     return resLinkHrefWillBeFoundPromise;
+}).then(function(resLinkHref){
+    //Resource Page will be loaded Promise
+    let resPageWillBeLoadedPromise = driver.get(resLinkHref);
+    return resPageWillBeLoadedPromise;
 }).catch(function(err){
     console.log(err);
 })
