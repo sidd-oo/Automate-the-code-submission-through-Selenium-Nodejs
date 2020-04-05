@@ -37,8 +37,13 @@ cfileWillBeReadPromise.then(function (content) {
     let submitButtonWillBeFoundPromise = driver.findElement(sd.By.css("button[type=submit]"));
     return submitButtonWillBeFoundPromise;
 }).then(function(submitButton){
-    let submitButtonClickedPromise = submitButton.click();
-    return submitButtonClickedPromise;
+    //This will click on the submit button element to login.
+    let submitButtonWillBeClickedPromise = submitButton.click();
+    return submitButtonWillBeClickedPromise;
+}).then(function(){
+    // Finding the resourse link element Promise
+    let resourceLinkWillBeFoundPromise = driver.findElement(sd.By.css('div.resource a'));
+    return resourceLinkWillBeFoundPromise;
 }).catch(function(err){
     console.log(err);
 })
