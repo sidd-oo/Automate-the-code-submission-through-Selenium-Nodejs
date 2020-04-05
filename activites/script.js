@@ -44,6 +44,10 @@ cfileWillBeReadPromise.then(function (content) {
     // Finding the resourse link element Promise
     let resourceLinkWillBeFoundPromise = driver.findElement(sd.By.css('div.resource a'));
     return resourceLinkWillBeFoundPromise;
+}).then(function(resLinkElement){
+    //Extracting the href attribribute from anchor tag
+    let resLinkHrefWillBeFoundPromise = resLinkElement.getAttribute('href');
+    return resLinkHrefWillBeFoundPromise;
 }).catch(function(err){
     console.log(err);
 })
