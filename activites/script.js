@@ -56,6 +56,10 @@ cfileWillBeReadPromise.then(function (content) {
     //Handling the SiteOverlay
     let siteOverlayElementWillBeFoundPromise = driver.findElement(sd.By.css("div#siteOverlay"));
     return siteOverlayElementWillBeFoundPromise;
+}).then(function(siteOverlayElement){
+    //Waiting till the page loads completely and the siteoverlay vanishes.
+    let willWaitForSiteoverlayToHidePromise = driver.wait(sd.until.elementIsNotVisible(siteOverlayElement),10000);
+    return willWaitForSiteoverlayToHidePromise;
 }).catch(function(err){
     console.log(err);
 })
