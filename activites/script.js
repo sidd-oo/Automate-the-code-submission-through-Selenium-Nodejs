@@ -52,6 +52,10 @@ cfileWillBeReadPromise.then(function (content) {
     //Resource Page will be loaded Promise
     let resPageWillBeLoadedPromise = driver.get(resLinkHref);
     return resPageWillBeLoadedPromise;
+}).then(function(){
+    //Handling the SiteOverlay
+    let siteOverlayElementWillBeFoundPromise = driver.findElement(sd.By.css("div#siteOverlay"));
+    return siteOverlayElementWillBeFoundPromise;
 }).catch(function(err){
     console.log(err);
 })
