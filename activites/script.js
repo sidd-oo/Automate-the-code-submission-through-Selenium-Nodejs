@@ -78,15 +78,17 @@ cfileWillBeReadPromise.then(function (content) {
 }).then(function(courseElementsTexts){
     //Comparing the coursename i.e cname from the courseElementTexts to proceed further with desired Course Tile
     for(let i = 0; i < courseElementsTexts.length; i++){
-        console.log(courseElementsTexts[i]);
         if(cname === courseElementsTexts[i]){
-            console.log(cname === courseElementsTexts[i]);
             globalCourseIndex = i;
             break;
         }
     }
     let courseElementsWillBeClickedPromise = globalCourseElements[globalCourseIndex].click();
     return courseElementsWillBeClickedPromise;
+}).then(function(){
+    //Retrieving the current Course URL Promise
+    let urlWillBeRetrievedPromise = driver.getCurrentUrl();
+    return urlWillBeRetrievedPromise;
 }).catch(function(err){
     console.log(err);
 })
