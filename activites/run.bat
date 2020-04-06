@@ -1,1 +1,1 @@
-node script.js credential.json metadata.json "The Placement Program"
+node script.js credential.json metadata.json `The Placement Program`

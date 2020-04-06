@@ -1,6 +1,7 @@
 let sd = require(`selenium-webdriver`);
 let cd = require('chromedriver');
 let fs = require('fs');
+
 let bldr = new sd.Builder();
 let driver = bldr.forBrowser('chrome').build();
 
@@ -9,6 +10,7 @@ let mfile = process.argv[3];
 let cname = process.argv[4];
 
 let userName, pwd;
+let globalCourseElements, globalCourseIndex = 0;
 
 let cfileWillBeReadPromise = fs.promises.readFile(cfile);
 cfileWillBeReadPromise.then(function (content) {
@@ -65,19 +67,26 @@ cfileWillBeReadPromise.then(function (content) {
     let courseElementWillBeFoundPromise = driver.findElements(sd.By.css('h2.courseInput'));
     return courseElementWillBeFoundPromise;
 }).then(function(courseElements){
-    // Text of all the courses are taken with the help of courseElements
+    // Text of all the courses that are taken with the help of courseElements
     globalCourseElements = courseElements;
-    let courseElementsTextPromise = [];
+    let courseElementsTextPromises = [];
     for(let i = 0; i < globalCourseElements.length; i++){
-        courseElementsTextPromise.push(globalCourseElements[i].getText())
+        courseElementsTextPromises.push(globalCourseElements[i].getText());
     }
-    let combinedTextPromiseForAllCourseElements = Promise.all(courseElementsTextPromise);
+    let combinedTextPromiseForAllCourseElements = Promise.all(courseElementsTextPromises);
     return combinedTextPromiseForAllCourseElements;
 }).then(function(courseElementsTexts){
-    for(let i = 0; i < courseElementsTexts.length;i++){
-        //Testing by printing all the course name.
+    //Comparing the coursename i.e cname from the courseElementTexts to proceed further with desired Course Tile
+    for(let i = 0; i < courseElementsTexts.length; i++){
         console.log(courseElementsTexts[i]);
+        if(cname === courseElementsTexts[i]){
+            console.log(cname === courseElementsTexts[i]);
+            globalCourseIndex = i;
+            break;
+        }
     }
+    let courseElementsWillBeClickedPromise = globalCourseElements[globalCourseIndex].click();
+    return courseElementsWillBeClickedPromise;
 }).catch(function(err){
     console.log(err);
 })
