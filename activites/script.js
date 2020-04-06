@@ -89,6 +89,11 @@ cfileWillBeReadPromise.then(function (content) {
     //Retrieving the current Course URL Promise
     let urlWillBeRetrievedPromise = driver.getCurrentUrl();
     return urlWillBeRetrievedPromise;
+}).then(function(url){
+    //metadata file will be read promise
+    globalurl = url;
+    let metadataFileWillBeReadPromise = fs.promises.readFile(mfile);
+    return metadataFileWillBeReadPromise;
 }).catch(function(err){
     console.log(err);
 })
