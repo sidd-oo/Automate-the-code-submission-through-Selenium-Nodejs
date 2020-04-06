@@ -60,6 +60,10 @@ cfileWillBeReadPromise.then(function (content) {
     //Waiting till the page loads completely and the siteoverlay vanishes.
     let willWaitForSiteoverlayToHidePromise = driver.wait(sd.until.elementIsNotVisible(siteOverlayElement),10000);
     return willWaitForSiteoverlayToHidePromise;
+}).then(function(){
+    //Course elements found Promise
+    let courseElementWillBeFoundPromise = driver.findElements(sd.By.css('h2.courseInput'));
+    return courseElementWillBeFoundPromise;
 }).catch(function(err){
     console.log(err);
 })
