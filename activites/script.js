@@ -64,6 +64,20 @@ cfileWillBeReadPromise.then(function (content) {
     //Course elements found Promise
     let courseElementWillBeFoundPromise = driver.findElements(sd.By.css('h2.courseInput'));
     return courseElementWillBeFoundPromise;
+}).then(function(courseElements){
+    // Text of all the courses are taken with the help of courseElements
+    globalCourseElements = courseElements;
+    let courseElementsTextPromise = [];
+    for(let i = 0; i < globalCourseElements.length; i++){
+        courseElementsTextPromise.push(globalCourseElements[i].getText())
+    }
+    let combinedTextPromiseForAllCourseElements = Promise.all(courseElementsTextPromise);
+    return combinedTextPromiseForAllCourseElements;
+}).then(function(courseElementsTexts){
+    for(let i = 0; i < courseElementsTexts.length;i++){
+        //Testing by printing all the course name.
+        console.log(courseElementsTexts[i]);
+    }
 }).catch(function(err){
     console.log(err);
 })
